@@ -40,7 +40,7 @@ export const Register: React.FC = () => {
     try {
       await register(name, email, password);
       showToast('Registration successful! Welcome to QueueFlow.', 'success');
-      navigate('/', { replace: true });
+      navigate('/dashboard', { replace: true });
     } catch (err: any) {
       const msg = err.response?.data?.message || 'Registration failed. Please try again.';
       setError(msg);

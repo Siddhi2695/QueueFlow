@@ -8,6 +8,7 @@ import { ToastProvider } from './context/ToastContext';
 import { ProtectedRoute } from './layouts/ProtectedRoute';
 import { Layout } from './layouts/Layout';
 
+import { LandingPage } from './pages/LandingPage';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Dashboard } from './pages/Dashboard';
@@ -27,7 +28,8 @@ export const App: React.FC = () => {
           <ToastProvider>
             <BrowserRouter>
               <Routes>
-                {/* Public standalone pages */}
+                {/* Public Marketing & Display Pages */}
+                <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/display/:id" element={<PublicQueueDisplay />} />
@@ -36,7 +38,7 @@ export const App: React.FC = () => {
                 {/* Protected Manager Application */}
                 <Route element={<ProtectedRoute />}>
                   <Route element={<Layout />}>
-                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/queues" element={<MyQueues />} />
                     <Route path="/queues/:id" element={<QueueDetails />} />
                     <Route path="/history" element={<QueueHistory />} />
@@ -58,4 +60,3 @@ export const App: React.FC = () => {
 };
 
 export default App;
-

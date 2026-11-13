@@ -24,7 +24,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
         >
           <Menu className="w-5 h-5" />
         </button>
-        <Link to="/" className="flex items-center gap-2.5 font-bold text-xl text-slate-900 dark:text-white">
+        <Link to="/dashboard" className="flex items-center gap-2.5 font-bold text-xl text-slate-900 dark:text-white">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-400 flex items-center justify-center text-white shadow-md shadow-indigo-200 dark:shadow-none">
             <Layers className="w-5 h-5" />
           </div>
