@@ -2,6 +2,8 @@ import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import path from 'path';
+import fs from 'fs';
 
 import authRoutes from './routes/auth.routes.js';
 import queueRoutes from './routes/queue.routes.js';
@@ -14,7 +16,11 @@ export const createApp = (): Application => {
   const app = express();
 
   // Middleware
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: false, // Allows Google Fonts and CDN resources
+    })
+  );
   app.use(
     cors({
       origin: '*',
@@ -53,9 +59,25 @@ export const createApp = (): Application => {
     });
   });
 
+  // Serve static frontend assets if built and deployed together (e.g. Render / single service)
+  const possibleFrontendPaths = [
+    path.resolve(process.cwd(), '../frontend/dist'),
+    path.resolve(process.cwd(), 'frontend/dist'),
+    path.resolve(process.cwd(), 'dist/public'),
+  ];
+
+  for (const fPath of possibleFrontendPaths) {
+    if (fs.existsSync(fPath)) {
+      app.use(express.static(fPath));
+      app.get('*', (_req: Request, res: Response) => {
+        res.sendFile(path.join(fPath, 'index.html'));
+      });
+      break;
+    }
+  }
+
   // Centralized Error Handling Middleware
   app.use(errorHandler);
 
   return app;
 };
-
