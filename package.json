@@ -1,0 +1,28 @@
+{
+  "name": "queueflow",
+  "version": "1.0.0",
+  "description": "QueueFlow – Smart Queue Management System (Full-Stack React + Node + Express + TypeScript + MongoDB)",
+  "scripts": {
+    "install:all": "npm --prefix backend install && npm --prefix frontend install",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "start:backend": "npm --prefix backend run start",
+    "preview:frontend": "npm --prefix frontend run preview",
+    "test:e2e": "node test-e2e.cjs"
+  },
+  "keywords": [
+    "queue-management",
+    "react",
+    "typescript",
+    "nodejs",
+    "express",
+    "mongodb",
+    "socketio",
+    "tailwindcss",
+    "full-stack"
+  ],
+  "author": "QueueFlow Team",
+  "license": "MIT"
+}
+

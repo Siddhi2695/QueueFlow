@@ -1,0 +1,234 @@
+{
+  "info": {
+    "_postman_id": "queueflow-api-collection-2026",
+    "name": "QueueFlow - Smart Queue Management System API",
+    "description": "Complete REST API collection for QueueFlow evaluation, including Authentication, Queues, Token Operations, History, Analytics and Public Display.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "queueId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "tokenId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register Manager",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sarah Connor\",\n  \"email\": \"sarah@example.com\",\n  \"password\": \"SecurePass123!\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          }
+        },
+        {
+          "name": "Login Manager",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"sarah@example.com\",\n  \"password\": \"SecurePass123!\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Get Profile (Me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Queues",
+      "item": [
+        {
+          "name": "List Manager Queues",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/queues", "host": ["{{baseUrl}}"], "path": ["queues"] }
+          }
+        },
+        {
+          "name": "Create Queue",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Counter 1 - Fast Track\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/queues", "host": ["{{baseUrl}}"], "path": ["queues"] }
+          }
+        },
+        {
+          "name": "Get Queue Details",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/queues/{{queueId}}", "host": ["{{baseUrl}}"], "path": ["queues", "{{queueId}}"] }
+          }
+        },
+        {
+          "name": "Update Queue",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Counter 1 - VIP Priority\",\n  \"status\": \"active\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/queues/{{queueId}}", "host": ["{{baseUrl}}"], "path": ["queues", "{{queueId}}"] }
+          }
+        },
+        {
+          "name": "Public Queue Display",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/queues/{{queueId}}/public", "host": ["{{baseUrl}}"], "path": ["queues", "{{queueId}}", "public"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tokens",
+      "item": [
+        {
+          "name": "Add Person to Queue",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"personName\": \"Alice Johnson\",\n  \"phoneNumber\": \"+1-555-0199\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/queues/{{queueId}}/tokens", "host": ["{{baseUrl}}"], "path": ["queues", "{{queueId}}", "tokens"] }
+          }
+        },
+        {
+          "name": "Call Next Token",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/queues/{{queueId}}/call-next", "host": ["{{baseUrl}}"], "path": ["queues", "{{queueId}}", "call-next"] }
+          }
+        },
+        {
+          "name": "Move Token Up",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/tokens/{{tokenId}}/move-up", "host": ["{{baseUrl}}"], "path": ["tokens", "{{tokenId}}", "move-up"] }
+          }
+        },
+        {
+          "name": "Move Token Down",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/tokens/{{tokenId}}/move-down", "host": ["{{baseUrl}}"], "path": ["tokens", "{{tokenId}}", "move-down"] }
+          }
+        },
+        {
+          "name": "Complete Service",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/tokens/{{tokenId}}/complete", "host": ["{{baseUrl}}"], "path": ["tokens", "{{tokenId}}", "complete"] }
+          }
+        },
+        {
+          "name": "Cancel Token",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/tokens/{{tokenId}}/cancel", "host": ["{{baseUrl}}"], "path": ["tokens", "{{tokenId}}", "cancel"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "History & Analytics",
+      "item": [
+        {
+          "name": "Get Queue History",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/history?page=1&limit=10&status=Completed",
+              "host": ["{{baseUrl}}"],
+              "path": ["history"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "status", "value": "Completed" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Analytics Overview",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/analytics/overview", "host": ["{{baseUrl}}"], "path": ["analytics", "overview"] }
+          }
+        },
+        {
+          "name": "Get Analytics Trends",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/analytics/trends?period=week", "host": ["{{baseUrl}}"], "path": ["analytics", "trends"] }
+          }
+        },
+        {
+          "name": "Get Queue Performance",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/analytics/performance", "host": ["{{baseUrl}}"], "path": ["analytics", "performance"] }
+          }
+        }
+      ]
+    }
+  ]
+}
+
